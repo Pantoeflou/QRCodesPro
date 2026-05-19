@@ -1,2 +1,2 @@
-# QRCodesPro
-Wordpress QR Codes Plugin (Pro)
+# WP-Framework-Pro
+WP Plugin Template Pro
