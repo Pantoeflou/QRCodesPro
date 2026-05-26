@@ -1,0 +1,219 @@
+/**
+ * QR Codes - Made Simple Pro — Dashboard Styles
+ *
+ * @package QRC_MS_Pro
+ * @since   1.4.0
+ */
+
+/*
+|--------------------------------------------------------------------------
+| Page Intro
+|--------------------------------------------------------------------------
+*/
+
+.qrc-ms-pro-page-intro {
+	max-width: 700px;
+	margin: 8px 0 24px;
+	padding: 12px 16px;
+	background: #f0f6fc;
+	border-left: 4px solid #2271b1;
+	border-radius: 0 4px 4px 0;
+}
+
+.qrc-ms-pro-page-intro p {
+	margin: 0;
+	font-size: 13px;
+	line-height: 1.6;
+	color: #1d2327;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Stats Cards Row
+|--------------------------------------------------------------------------
+*/
+
+.qrc-ms-pro-dashboard-stats {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 16px;
+	margin-bottom: 24px;
+}
+
+.qrc-ms-pro-stat-card {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 16px 20px;
+	transition: box-shadow 0.15s ease;
+}
+
+.qrc-ms-pro-stat-card:hover {
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.qrc-ms-pro-stat-icon {
+	font-size: 28px;
+	width: 28px;
+	height: 28px;
+	color: #2271b1;
+	flex-shrink: 0;
+}
+
+.qrc-ms-pro-stat-content {
+	display: flex;
+	flex-direction: column;
+}
+
+.qrc-ms-pro-stat-value {
+	font-size: 22px;
+	font-weight: 600;
+	line-height: 1.2;
+	color: #1d2327;
+}
+
+.qrc-ms-pro-stat-label {
+	font-size: 12px;
+	color: #646970;
+	margin-top: 2px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Two-Column Grid
+|--------------------------------------------------------------------------
+*/
+
+.qrc-ms-pro-dashboard-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+	margin-bottom: 24px;
+}
+
+.qrc-ms-pro-dashboard-card {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 20px;
+}
+
+.qrc-ms-pro-dashboard-card h2 {
+	margin: 0 0 12px 0;
+	font-size: 14px;
+	font-weight: 600;
+	color: #1d2327;
+}
+
+.qrc-ms-pro-dashboard-card .widefat {
+	border: none;
+	box-shadow: none;
+}
+
+.qrc-ms-pro-dashboard-card .widefat th {
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: #646970;
+	padding: 6px 8px;
+}
+
+.qrc-ms-pro-dashboard-card .widefat td {
+	padding: 8px;
+	vertical-align: middle;
+}
+
+.qrc-ms-pro-dashboard-card-footer {
+	margin: 12px 0 0;
+	padding-top: 12px;
+	border-top: 1px solid #f0f0f1;
+	text-align: right;
+}
+
+.qrc-ms-pro-dashboard-card-footer a {
+	text-decoration: none;
+	font-weight: 500;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Device Badge
+|--------------------------------------------------------------------------
+*/
+
+.qrc-ms-pro-device-badge {
+	display: inline-block;
+	padding: 2px 8px;
+	background: #f0f0f1;
+	border-radius: 3px;
+	font-size: 11px;
+	font-weight: 500;
+	color: #50575e;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Quick Actions Row
+|--------------------------------------------------------------------------
+*/
+
+.qrc-ms-pro-dashboard-actions {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+	padding: 20px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+}
+
+.qrc-ms-pro-dashboard-actions .button-hero {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	padding: 8px 16px;
+	height: auto;
+	line-height: 1.5;
+}
+
+.qrc-ms-pro-dashboard-actions .button-hero .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	line-height: 1;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Responsive
+|--------------------------------------------------------------------------
+*/
+
+@media screen and (max-width: 1200px) {
+	.qrc-ms-pro-dashboard-stats {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media screen and (max-width: 782px) {
+	.qrc-ms-pro-dashboard-stats {
+		grid-template-columns: 1fr;
+	}
+
+	.qrc-ms-pro-dashboard-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.qrc-ms-pro-dashboard-actions {
+		flex-direction: column;
+	}
+
+	.qrc-ms-pro-dashboard-actions .button-hero {
+		width: 100%;
+		justify-content: center;
+	}
+}

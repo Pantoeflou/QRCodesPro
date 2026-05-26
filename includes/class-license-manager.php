@@ -7,8 +7,8 @@
  *
  * Also hooks into the free plugin's settings page to add the License tab.
  *
- * @package    WP_Forever_Pro
- * @subpackage WP_Forever_Pro/includes
+ * @package    QRC_MS_Pro
+ * @subpackage QRC_MS_Pro/includes
  * @since      1.0.0
  */
 
@@ -21,28 +21,28 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class WP_Forever_Pro_License_Manager {
+class QRC_MS_Pro_License_Manager {
 
 	/**
 	 * Option key for storing the license key.
 	 */
-	private const LICENSE_OPTION = 'wp_forever_pro_license_key';
+	private const LICENSE_OPTION = 'qrc_ms_pro_license_key';
 
 	/**
 	 * Transient key for caching license status.
 	 */
-	private const STATUS_TRANSIENT = 'wp_forever_pro_license_status';
+	private const STATUS_TRANSIENT = 'qrc_ms_pro_license_status';
 
 	/**
 	 * Option key for storing license metadata (expiry, plan, etc.).
 	 */
-	private const DATA_OPTION = 'wp_forever_pro_license_data';
+	private const DATA_OPTION = 'qrc_ms_pro_license_data';
 
 	/**
 	 * Your license API base URL.
 	 * Update this to your actual license server endpoint.
 	 */
-	private const API_URL = 'https://your-site.com/wp-json/license/v1/';
+	private const API_URL = 'https://example.com/wp-json/license/v1/';
 
 	/**
 	 * How long to cache the license status (seconds).
@@ -59,17 +59,17 @@ class WP_Forever_Pro_License_Manager {
 	 */
 	public static function init(): void {
 		// Add License tab to the free plugin's settings page.
-		add_filter( 'wp_forever/settings_tabs', array( __CLASS__, 'add_license_tab' ) );
+		add_filter( 'qrc_ms/settings_tabs', array( __CLASS__, 'add_license_tab' ) );
 
 		// Register the license tab content.
-		add_action( 'wp_forever/settings_tab_content_license', array( __CLASS__, 'render_license_tab' ) );
+		add_action( 'qrc_ms/settings_tab_content_license', array( __CLASS__, 'render_license_tab' ) );
 
 		// AJAX handlers for license activation/deactivation.
-		add_action( 'wp_ajax_wp_forever_pro_activate_license', array( __CLASS__, 'ajax_activate' ) );
-		add_action( 'wp_ajax_wp_forever_pro_deactivate_license', array( __CLASS__, 'ajax_deactivate' ) );
+		add_action( 'wp_ajax_qrc_ms_pro_activate_license', array( __CLASS__, 'ajax_activate' ) );
+		add_action( 'wp_ajax_qrc_ms_pro_deactivate_license', array( __CLASS__, 'ajax_deactivate' ) );
 
 		// Add plugin action links.
-		add_filter( 'plugin_action_links_' . WP_FOREVER_PRO_PLUGIN_BASENAME, array( __CLASS__, 'add_action_links' ) );
+		add_filter( 'plugin_action_links_' . QRC_MS_PRO_PLUGIN_BASENAME, array( __CLASS__, 'add_action_links' ) );
 	}
 
 	/**
@@ -80,7 +80,7 @@ class WP_Forever_Pro_License_Manager {
 	 * @return array Modified tabs.
 	 */
 	public static function add_license_tab( array $tabs ): array {
-		$tabs['license'] = __( 'License', 'wp-forever-pro' );
+		$tabs['license'] = __( 'License', 'qrc-ms-pro' );
 		return $tabs;
 	}
 
@@ -91,7 +91,7 @@ class WP_Forever_Pro_License_Manager {
 	 * @return void
 	 */
 	public static function render_license_tab(): void {
-		$template = WP_FOREVER_PRO_PLUGIN_DIR . 'views/license-tab.php';
+		$template = QRC_MS_PRO_PLUGIN_DIR . 'views/license-tab.php';
 		if ( file_exists( $template ) ) {
 			include $template;
 		}
@@ -107,8 +107,8 @@ class WP_Forever_Pro_License_Manager {
 	public static function add_action_links( array $links ): array {
 		$license_link = sprintf(
 			'<a href="%s">%s</a>',
-			esc_url( admin_url( 'options-general.php?page=wp-forever&tab=license' ) ),
-			esc_html__( 'License', 'wp-forever-pro' )
+			esc_url( admin_url( 'admin.php?page=qrc-ms-settings&tab=license' ) ),
+			esc_html__( 'License', 'qrc-ms-pro' )
 		);
 		array_unshift( $links, $license_link );
 		return $links;
@@ -191,16 +191,16 @@ class WP_Forever_Pro_License_Manager {
 	 * @return void
 	 */
 	public static function ajax_activate(): void {
-		check_ajax_referer( 'wp_forever_pro_license', 'nonce' );
+		check_ajax_referer( 'qrc_ms_pro_license', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'wp-forever-pro' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'qrc-ms-pro' ) ), 403 );
 		}
 
 		$key = isset( $_POST['license_key'] ) ? sanitize_text_field( wp_unslash( $_POST['license_key'] ) ) : '';
 
 		if ( empty( $key ) ) {
-			wp_send_json_error( array( 'message' => __( 'Please enter a license key.', 'wp-forever-pro' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Please enter a license key.', 'qrc-ms-pro' ) ) );
 		}
 
 		$result = self::activate( $key );
@@ -218,10 +218,10 @@ class WP_Forever_Pro_License_Manager {
 	 * @return void
 	 */
 	public static function ajax_deactivate(): void {
-		check_ajax_referer( 'wp_forever_pro_license', 'nonce' );
+		check_ajax_referer( 'qrc_ms_pro_license', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'wp-forever-pro' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'qrc-ms-pro' ) ), 403 );
 		}
 
 		$result = self::deactivate();
@@ -243,7 +243,7 @@ class WP_Forever_Pro_License_Manager {
 		$response = self::api_request( 'activate', array(
 			'license_key' => $key,
 			'site_url'    => home_url(),
-			'plugin'      => 'wp-forever-pro',
+			'plugin'      => 'qrc-ms-pro',
 		) );
 
 		if ( is_wp_error( $response ) ) {
@@ -254,10 +254,10 @@ class WP_Forever_Pro_License_Manager {
 			update_option( self::LICENSE_OPTION, $key );
 			update_option( self::DATA_OPTION, $response['data'] ?? array() );
 			set_transient( self::STATUS_TRANSIENT, 'valid', self::CACHE_DURATION );
-			return array( 'success' => true, 'message' => __( 'License activated successfully.', 'wp-forever-pro' ) );
+			return array( 'success' => true, 'message' => __( 'License activated successfully.', 'qrc-ms-pro' ) );
 		}
 
-		return array( 'success' => false, 'message' => $response['message'] ?? __( 'Invalid license key.', 'wp-forever-pro' ) );
+		return array( 'success' => false, 'message' => $response['message'] ?? __( 'Invalid license key.', 'qrc-ms-pro' ) );
 	}
 
 	/**
@@ -269,7 +269,7 @@ class WP_Forever_Pro_License_Manager {
 	public static function deactivate(): array {
 		$key = self::get_license_key();
 		if ( empty( $key ) ) {
-			return array( 'success' => false, 'message' => __( 'No license to deactivate.', 'wp-forever-pro' ) );
+			return array( 'success' => false, 'message' => __( 'No license to deactivate.', 'qrc-ms-pro' ) );
 		}
 
 		// Notify server (best effort).
@@ -283,7 +283,7 @@ class WP_Forever_Pro_License_Manager {
 		delete_option( self::DATA_OPTION );
 		delete_transient( self::STATUS_TRANSIENT );
 
-		return array( 'success' => true, 'message' => __( 'License deactivated.', 'wp-forever-pro' ) );
+		return array( 'success' => true, 'message' => __( 'License deactivated.', 'qrc-ms-pro' ) );
 	}
 
 	/**
@@ -343,7 +343,7 @@ class WP_Forever_Pro_License_Manager {
 		$data = json_decode( $body, true );
 
 		if ( $code !== 200 || ! is_array( $data ) ) {
-			return new WP_Error( 'license_api_error', __( 'Unable to reach license server.', 'wp-forever-pro' ) );
+			return new WP_Error( 'license_api_error', __( 'Unable to reach license server.', 'qrc-ms-pro' ) );
 		}
 
 		return $data;

@@ -7,7 +7,7 @@ Follow this checklist to create a new pro add-on from this template.
 ## 1. Copy Template
 
 ```bash
-cp -r wp-forever-pro my-plugin-pro
+cp -r qrc-ms-pro my-plugin-pro
 cd my-plugin-pro
 rm -rf .git
 git init
@@ -19,7 +19,7 @@ git init
 
 ### 2.1 Rename Files
 
-- [ ] `wp-forever-pro.php` → `my-plugin-pro.php`
+- [ ] `qrc-ms-pro.php` → `my-plugin-pro.php`
 
 ### 2.2 Update Plugin Header
 
@@ -31,17 +31,17 @@ git init
 
 ### 2.3 Find and Replace (Case-Sensitive)
 
-- [ ] `wp-forever-pro` → `my-plugin-pro`
-- [ ] `WP_FOREVER_PRO_` → `MY_PLUGIN_PRO_`
-- [ ] `wp_forever_pro_` → `my_plugin_pro_`
-- [ ] `WP_Forever_Pro_` → `My_Plugin_Pro_`
-- [ ] `wp_forever_pro/` → `my_plugin_pro/`
-- [ ] `WP Forever Pro` → `My Plugin Pro`
+- [ ] `qrc-ms-pro` → `my-plugin-pro`
+- [ ] `QRC_MS_PRO_` → `MY_PLUGIN_PRO_`
+- [ ] `qrc_ms_pro_` → `my_plugin_pro_`
+- [ ] `QRC_MS_Pro_` → `My_Plugin_Pro_`
+- [ ] `qrc_ms_pro/` → `my_plugin_pro/`
+- [ ] `QR Codes - Made Simple Pro` → `My Plugin Pro`
 
 ### 2.4 Update Dependency Check
 
-- [ ] Change `WP_FOREVER_VERSION` to your free plugin's version constant
-- [ ] Change `WP_FOREVER_PRO_MIN_FREE_VERSION` value to match
+- [ ] Change `QRC_MS_VERSION` to your free plugin's version constant
+- [ ] Change `QRC_MS_PRO_MIN_FREE_VERSION` value to match
 
 ### 2.5 Update Server URLs
 
@@ -98,7 +98,7 @@ Ensure your free plugin provides the hooks that pro needs:
 Create a ZIP for your website's download:
 
 ```bash
-zip -r my-plugin-pro-1.0.0.zip my-plugin-pro/ \
+zip -r qrc-ms-pro-1.0.0.zip qrc-ms-pro/ \
   --exclude="*.git*" \
   --exclude="*docs/*" \
   --exclude="*.kiro/*" \

@@ -5,8 +5,8 @@
  * Checks your server for new versions of the pro add-on and delivers
  * updates to licensed users. Hooks into WordPress update system.
  *
- * @package    WP_Forever_Pro
- * @subpackage WP_Forever_Pro/includes
+ * @package    QRC_MS_Pro
+ * @subpackage QRC_MS_Pro/includes
  * @since      1.0.0
  */
 
@@ -19,12 +19,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class WP_Forever_Pro_Updater {
+class QRC_MS_Pro_Updater {
 
 	/**
 	 * Your update server endpoint.
 	 */
-	private const UPDATE_URL = 'https://your-site.com/wp-json/updates/v1/check';
+	private const UPDATE_URL = 'https://example.com/wp-json/updates/v1/check';
 
 	/**
 	 * Initialize the updater.
@@ -35,7 +35,7 @@ class WP_Forever_Pro_Updater {
 	public static function init(): void {
 		add_filter( 'pre_set_site_transient_update_plugins', array( __CLASS__, 'check_for_update' ) );
 		add_filter( 'plugins_api', array( __CLASS__, 'plugin_info' ), 10, 3 );
-		add_action( 'in_plugin_update_message-' . WP_FOREVER_PRO_PLUGIN_BASENAME, array( __CLASS__, 'update_message' ), 10, 2 );
+		add_action( 'in_plugin_update_message-' . QRC_MS_PRO_PLUGIN_BASENAME, array( __CLASS__, 'update_message' ), 10, 2 );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class WP_Forever_Pro_Updater {
 			return $transient;
 		}
 
-		$license_key = WP_Forever_Pro_License_Manager::get_license_key();
+		$license_key = QRC_MS_Pro_License_Manager::get_license_key();
 		if ( empty( $license_key ) ) {
 			return $transient;
 		}
@@ -60,10 +60,10 @@ class WP_Forever_Pro_Updater {
 			return $transient;
 		}
 
-		if ( version_compare( WP_FOREVER_PRO_VERSION, $remote['version'], '<' ) ) {
-			$transient->response[ WP_FOREVER_PRO_PLUGIN_BASENAME ] = (object) array(
-				'slug'        => dirname( WP_FOREVER_PRO_PLUGIN_BASENAME ),
-				'plugin'      => WP_FOREVER_PRO_PLUGIN_BASENAME,
+		if ( version_compare( QRC_MS_PRO_VERSION, $remote['version'], '<' ) ) {
+			$transient->response[ QRC_MS_PRO_PLUGIN_BASENAME ] = (object) array(
+				'slug'        => dirname( QRC_MS_PRO_PLUGIN_BASENAME ),
+				'plugin'      => QRC_MS_PRO_PLUGIN_BASENAME,
 				'new_version' => $remote['version'],
 				'url'         => $remote['homepage'] ?? '',
 				'package'     => $remote['download_url'] ?? '',
@@ -89,12 +89,12 @@ class WP_Forever_Pro_Updater {
 			return $result;
 		}
 
-		$slug = dirname( WP_FOREVER_PRO_PLUGIN_BASENAME );
+		$slug = dirname( QRC_MS_PRO_PLUGIN_BASENAME );
 		if ( ! isset( $args->slug ) || $args->slug !== $slug ) {
 			return $result;
 		}
 
-		$license_key = WP_Forever_Pro_License_Manager::get_license_key();
+		$license_key = QRC_MS_Pro_License_Manager::get_license_key();
 		$remote      = self::get_remote_info( $license_key );
 
 		if ( ! $remote ) {
@@ -102,9 +102,9 @@ class WP_Forever_Pro_Updater {
 		}
 
 		return (object) array(
-			'name'          => $remote['name'] ?? 'WP Forever Pro',
+			'name'          => $remote['name'] ?? 'QR Codes - Made Simple Pro',
 			'slug'          => $slug,
-			'version'       => $remote['version'] ?? WP_FOREVER_PRO_VERSION,
+			'version'       => $remote['version'] ?? QRC_MS_PRO_VERSION,
 			'author'        => $remote['author'] ?? '',
 			'homepage'      => $remote['homepage'] ?? '',
 			'requires'      => $remote['requires'] ?? '6.0',
@@ -130,7 +130,7 @@ class WP_Forever_Pro_Updater {
 		if ( empty( $response->package ) ) {
 			printf(
 				' <strong>%s</strong>',
-				esc_html__( 'A valid license key is required to receive updates.', 'wp-forever-pro' )
+				esc_html__( 'A valid license key is required to receive updates.', 'qrc-ms-pro' )
 			);
 		}
 	}
@@ -147,8 +147,8 @@ class WP_Forever_Pro_Updater {
 			add_query_arg( array(
 				'license_key' => $license_key,
 				'site_url'    => home_url(),
-				'plugin'      => 'wp-forever-pro',
-				'version'     => WP_FOREVER_PRO_VERSION,
+				'plugin'      => 'qrc-ms-pro',
+				'version'     => QRC_MS_PRO_VERSION,
 			), self::UPDATE_URL ),
 			array( 'timeout' => 10 )
 		);

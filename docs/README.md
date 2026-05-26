@@ -1,4 +1,4 @@
-# WP Forever Pro — Add-On Template
+# QR Codes - Made Simple Pro — Add-On Template
 
 This is the template for pro add-on plugins that extend a free plugin built from WP-Framework.
 
@@ -24,17 +24,17 @@ The pro add-on:
 
 | Find | Replace With |
 |------|--------------|
-| `wp-forever-pro` | `my-plugin-pro` (text domain, slug) |
-| `WP_FOREVER_PRO_` | `MY_PLUGIN_PRO_` (constants) |
-| `wp_forever_pro_` | `my_plugin_pro_` (functions, hooks, options) |
-| `WP_Forever_Pro_` | `My_Plugin_Pro_` (classes) |
-| `wp_forever_pro/` | `my_plugin_pro/` (hook namespace) |
-| `WP Forever Pro` | `My Plugin Pro` (display name) |
+| `qrc-ms-pro` | `my-plugin-pro` (text domain, slug) |
+| `QRC_MS_PRO_` | `MY_PLUGIN_PRO_` (constants) |
+| `qrc_ms_pro_` | `my_plugin_pro_` (functions, hooks, options) |
+| `QRC_MS_Pro_` | `My_Plugin_Pro_` (classes) |
+| `qrc_ms_pro/` | `my_plugin_pro/` (hook namespace) |
+| `QR Codes - Made Simple Pro` | `My Plugin Pro` (display name) |
 
 ### Also Update
 
 - [ ] Plugin header in main file (name, description, author, URIs)
-- [ ] `WP_FOREVER_PRO_MIN_FREE_VERSION` — set to your free plugin's current version
+- [ ] `QRC_MS_PRO_MIN_FREE_VERSION` — set to your free plugin's current version
 - [ ] `API_URL` in license manager — your actual license server
 - [ ] `UPDATE_URL` in updater — your actual update server
 - [ ] Dependency check references (free plugin constant name)

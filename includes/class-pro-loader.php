@@ -10,8 +10,8 @@
  * 2. Require it in load_modules()
  * 3. Initialize it in init_modules()
  *
- * @package    WP_Forever_Pro
- * @subpackage WP_Forever_Pro/includes
+ * @package    QRC_MS_Pro
+ * @subpackage QRC_MS_Pro/includes
  * @since      1.0.0
  */
 
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class WP_Forever_Pro_Loader {
+class QRC_MS_Pro_Loader {
 
 	/**
 	 * Whether modules have been initialized.
@@ -53,7 +53,7 @@ class WP_Forever_Pro_Loader {
 		 *
 		 * @since 1.0.0
 		 */
-		do_action( 'wp_forever_pro/modules_loaded' );
+		do_action( 'qrc_ms_pro/modules_loaded' );
 	}
 
 	/**
@@ -63,17 +63,40 @@ class WP_Forever_Pro_Loader {
 	 * @return void
 	 */
 	private static function load_modules(): void {
-		$modules_dir = WP_FOREVER_PRO_PLUGIN_DIR . 'modules/';
+		$modules_dir  = QRC_MS_PRO_PLUGIN_DIR . 'modules/';
+		$includes_dir = QRC_MS_PRO_PLUGIN_DIR . 'includes/';
 
-		// Load each module file:
-		// require_once $modules_dir . 'class-advanced-analytics.php';
-		// require_once $modules_dir . 'class-premium-templates.php';
-		// require_once $modules_dir . 'class-export-import.php';
+		// Dashboard.
+		require_once $modules_dir . 'class-dashboard.php';
 
-		// Example module (remove after building real modules):
-		if ( file_exists( $modules_dir . 'class-example-module.php' ) ) {
-			require_once $modules_dir . 'class-example-module.php';
-		}
+		// Dynamic QR Codes (redirect handler is already loaded in qrc_ms_pro_init).
+		require_once $includes_dir . 'class-redirect-handler.php';
+		require_once $modules_dir . 'class-dynamic-qr.php';
+
+		// Scan Analytics.
+		require_once $includes_dir . 'class-analytics-db.php';
+		require_once $modules_dir . 'class-analytics.php';
+
+		// Campaigns.
+		require_once $modules_dir . 'class-campaigns.php';
+
+		// Bulk Generator.
+		require_once $modules_dir . 'class-bulk-generator.php';
+
+		// Advanced Branding.
+		require_once $modules_dir . 'class-branding.php';
+
+		// Automation Rules.
+		require_once $modules_dir . 'class-automation.php';
+
+		// Elementor Integration.
+		require_once $modules_dir . 'class-elementor.php';
+
+		// Team / Multi-user.
+		require_once $modules_dir . 'class-team.php';
+
+		// Export & Reporting.
+		require_once $modules_dir . 'class-export.php';
 	}
 
 	/**
@@ -83,15 +106,36 @@ class WP_Forever_Pro_Loader {
 	 * @return void
 	 */
 	private static function init_modules(): void {
-		// Initialize each module:
-		// WP_Forever_Pro_Advanced_Analytics::init();
-		// WP_Forever_Pro_Premium_Templates::init();
-		// WP_Forever_Pro_Export_Import::init();
+		// Dashboard (registered early so it appears first in the menu).
+		QRC_MS_Pro_Dashboard::init();
 
-		// Example module:
-		if ( class_exists( 'WP_Forever_Pro_Example_Module' ) ) {
-			WP_Forever_Pro_Example_Module::init();
-		}
+		// Dynamic QR Codes.
+		QRC_MS_Pro_Dynamic_QR::init();
+
+		// Scan Analytics (install schema if needed, then init).
+		QRC_MS_Pro_Analytics_DB::maybe_install();
+		QRC_MS_Pro_Analytics::init();
+
+		// Campaigns.
+		QRC_MS_Pro_Campaigns::init();
+
+		// Bulk Generator.
+		QRC_MS_Pro_Bulk_Generator::init();
+
+		// Advanced Branding.
+		QRC_MS_Pro_Branding::init();
+
+		// Automation Rules.
+		QRC_MS_Pro_Automation::init();
+
+		// Elementor Integration.
+		QRC_MS_Pro_Elementor::init();
+
+		// Team / Multi-user.
+		QRC_MS_Pro_Team::init();
+
+		// Export & Reporting.
+		QRC_MS_Pro_Export::init();
 	}
 
 	/**

@@ -10,8 +10,8 @@
  * - init() registers hooks into the free plugin's extension points
  * - The module only runs when the pro loader calls init()
  *
- * @package    WP_Forever_Pro
- * @subpackage WP_Forever_Pro/modules
+ * @package    QRC_MS_Pro
+ * @subpackage QRC_MS_Pro/modules
  * @since      1.0.0
  */
 
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-class WP_Forever_Pro_Example_Module {
+class QRC_MS_Pro_Example_Module {
 
 	/**
 	 * Initialize the module.
@@ -36,13 +36,13 @@ class WP_Forever_Pro_Example_Module {
 	 */
 	public static function init(): void {
 		// Example: Add pro features to the free plugin's feature list.
-		add_filter( 'wp_forever/feature_list', array( __CLASS__, 'add_pro_features' ) );
+		add_filter( 'qrc_ms/feature_list', array( __CLASS__, 'add_pro_features' ) );
 
 		// Example: Add content after the free plugin's output.
-		add_action( 'wp_forever/after_output', array( __CLASS__, 'render_pro_content' ) );
+		add_action( 'qrc_ms/after_output', array( __CLASS__, 'render_pro_content' ) );
 
 		// Example: Add a pro settings section to the free plugin's settings.
-		add_action( 'wp_forever/settings_section_advanced', array( __CLASS__, 'add_pro_settings' ) );
+		add_action( 'qrc_ms/settings_section_advanced', array( __CLASS__, 'add_pro_settings' ) );
 
 		// Example: Extend the free plugin's REST API.
 		add_action( 'rest_api_init', array( __CLASS__, 'register_pro_routes' ) );
@@ -57,8 +57,8 @@ class WP_Forever_Pro_Example_Module {
 	 */
 	public static function add_pro_features( array $features ): array {
 		$features[] = array(
-			'name'        => __( 'Advanced Analytics', 'wp-forever-pro' ),
-			'description' => __( 'Detailed usage analytics and reporting.', 'wp-forever-pro' ),
+			'name'        => __( 'Advanced Analytics', 'qrc-ms-pro' ),
+			'description' => __( 'Detailed usage analytics and reporting.', 'qrc-ms-pro' ),
 			'pro'         => true,
 		);
 
@@ -74,8 +74,8 @@ class WP_Forever_Pro_Example_Module {
 	 */
 	public static function render_pro_content( array $data = array() ): void {
 		// Render pro-specific output here.
-		echo '<div class="wp-forever-pro-content">';
-		echo '<p>' . esc_html__( 'Pro feature content here.', 'wp-forever-pro' ) . '</p>';
+		echo '<div class="qrc-ms-pro-content">';
+		echo '<p>' . esc_html__( 'Pro feature content here.', 'qrc-ms-pro' ) . '</p>';
 		echo '</div>';
 	}
 
@@ -96,7 +96,7 @@ class WP_Forever_Pro_Example_Module {
 	 * @return void
 	 */
 	public static function register_pro_routes(): void {
-		register_rest_route( 'wp-forever/v1', '/pro/stats', array(
+		register_rest_route( 'qrc-ms/v1', '/pro/stats', array(
 			'methods'             => 'GET',
 			'callback'            => array( __CLASS__, 'get_stats' ),
 			'permission_callback' => function() {
@@ -115,7 +115,7 @@ class WP_Forever_Pro_Example_Module {
 	public static function get_stats( WP_REST_Request $request ): WP_REST_Response {
 		return new WP_REST_Response( array(
 			'ok'      => true,
-			'message' => __( 'Pro stats endpoint.', 'wp-forever-pro' ),
+			'message' => __( 'Pro stats endpoint.', 'qrc-ms-pro' ),
 		), 200 );
 	}
 }

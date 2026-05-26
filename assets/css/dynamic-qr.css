@@ -1,0 +1,125 @@
+/**
+ * Dynamic QR Code admin panel styles.
+ *
+ * @package QRC_MS_Pro
+ * @since   1.0.0
+ */
+
+.qrc-ms-pro-dynamic-panel {
+	padding: 12px 0;
+}
+
+.qrc-ms-pro-dynamic-toggle {
+	margin-bottom: 16px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid #dcdcde;
+}
+
+.qrc-ms-pro-dynamic-toggle label {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+}
+
+.qrc-ms-pro-dynamic-toggle .description {
+	margin-top: 8px;
+	margin-left: 24px;
+}
+
+.qrc-ms-pro-dynamic-details {
+	margin-top: 12px;
+}
+
+.qrc-ms-pro-field {
+	margin-bottom: 16px;
+}
+
+.qrc-ms-pro-field label {
+	display: block;
+	margin-bottom: 6px;
+}
+
+.qrc-ms-pro-short-code {
+	display: inline-block;
+	padding: 4px 10px;
+	background: #f0f0f1;
+	border: 1px solid #dcdcde;
+	border-radius: 3px;
+	font-size: 14px;
+	font-family: monospace;
+	letter-spacing: 1px;
+}
+
+.qrc-ms-pro-url-box {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.qrc-ms-pro-url-box input[readonly] {
+	background: #f6f7f7;
+	color: #50575e;
+	font-family: monospace;
+	font-size: 12px;
+}
+
+.qrc-ms-pro-redirect-url-display {
+	padding: 12px;
+	background: #f0f6fc;
+	border: 1px solid #c3c4c7;
+	border-left: 4px solid #2271b1;
+	border-radius: 2px;
+}
+
+.qrc-ms-pro-destination-row {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.qrc-ms-pro-destination-row input[type="url"] {
+	flex: 1;
+}
+
+.qrc-ms-pro-ajax-message {
+	margin-top: 8px;
+	padding: 8px 12px;
+	border-radius: 3px;
+	font-size: 13px;
+}
+
+.qrc-ms-pro-message-success {
+	background: #d4edda;
+	border: 1px solid #c3e6cb;
+	color: #155724;
+}
+
+.qrc-ms-pro-message-error {
+	background: #f8d7da;
+	border: 1px solid #f5c6cb;
+	color: #721c24;
+}
+
+/* History table */
+.qrc-ms-pro-history {
+	margin-top: 20px;
+	padding-top: 16px;
+	border-top: 1px solid #dcdcde;
+}
+
+.qrc-ms-pro-history-table {
+	margin-top: 8px;
+}
+
+.qrc-ms-pro-history-table th {
+	font-weight: 600;
+}
+
+.qrc-ms-pro-url-cell {
+	max-width: 200px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 12px;
+}

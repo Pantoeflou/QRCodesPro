@@ -1,0 +1,316 @@
+/**
+ * Scan Analytics styles.
+ *
+ * CSS-only dashboard with bar chart, summary cards, and meta box styles.
+ *
+ * @package QRC_MS_Pro
+ * @since   1.1.0
+ */
+
+/* ==========================================================================
+   Summary Cards
+   ========================================================================== */
+
+.qrc-ms-pro-analytics-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: 16px;
+	margin: 20px 0;
+}
+
+.qrc-ms-pro-analytics-card {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 20px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.qrc-ms-pro-card-value {
+	font-size: 32px;
+	font-weight: 600;
+	color: #1d2327;
+	line-height: 1.2;
+}
+
+.qrc-ms-pro-card-label {
+	font-size: 13px;
+	color: #646970;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   Period Filters
+   ========================================================================== */
+
+.qrc-ms-pro-analytics-filters {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin: 20px 0;
+	flex-wrap: wrap;
+}
+
+.qrc-ms-pro-analytics-filters label {
+	margin-right: 4px;
+}
+
+.qrc-ms-pro-filter-active {
+	background: #2271b1 !important;
+	border-color: #2271b1 !important;
+	color: #fff !important;
+}
+
+/* ==========================================================================
+   CSS-Only Bar Chart
+   ========================================================================== */
+
+.qrc-ms-pro-analytics-chart-section {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 20px;
+	margin: 20px 0;
+}
+
+.qrc-ms-pro-analytics-chart-section h2 {
+	margin-top: 0;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.qrc-ms-pro-chart-container {
+	overflow-x: auto;
+	padding-bottom: 10px;
+}
+
+.qrc-ms-pro-chart-bars {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: minmax(24px, 1fr);
+	gap: 2px;
+	align-items: end;
+	height: 200px;
+	min-width: fit-content;
+	border-bottom: 2px solid #dcdcde;
+	padding-bottom: 0;
+}
+
+.qrc-ms-pro-chart-bar-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100%;
+	justify-content: flex-end;
+	position: relative;
+	min-width: 20px;
+}
+
+.qrc-ms-pro-chart-bar {
+	width: 100%;
+	max-width: 30px;
+	background: #2271b1;
+	border-radius: 3px 3px 0 0;
+	position: relative;
+	transition: background 0.2s ease;
+	min-height: 2px;
+}
+
+.qrc-ms-pro-chart-bar:hover {
+	background: #135e96;
+}
+
+.qrc-ms-pro-chart-bar-value {
+	position: absolute;
+	top: -18px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 10px;
+	color: #1d2327;
+	white-space: nowrap;
+	display: none;
+}
+
+.qrc-ms-pro-chart-bar-wrapper:hover .qrc-ms-pro-chart-bar-value {
+	display: block;
+}
+
+.qrc-ms-pro-chart-bar-label {
+	font-size: 9px;
+	color: #646970;
+	margin-top: 6px;
+	white-space: nowrap;
+	transform: rotate(-45deg);
+	transform-origin: top center;
+}
+
+/* Show every Nth label depending on chart width */
+.qrc-ms-pro-chart-bars .qrc-ms-pro-chart-bar-wrapper:nth-child(odd) .qrc-ms-pro-chart-bar-label {
+	visibility: hidden;
+}
+
+.qrc-ms-pro-chart-bars .qrc-ms-pro-chart-bar-wrapper:nth-child(5n+1) .qrc-ms-pro-chart-bar-label {
+	visibility: visible;
+}
+
+/* ==========================================================================
+   Table Section
+   ========================================================================== */
+
+.qrc-ms-pro-analytics-table-section {
+	margin: 20px 0;
+}
+
+.qrc-ms-pro-analytics-table-section h2 {
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.qrc-ms-pro-analytics-table-section .column-scans,
+.qrc-ms-pro-analytics-table-section .column-last-scan {
+	width: 150px;
+}
+
+.qrc-ms-pro-analytics-table-section .column-short-code {
+	width: 120px;
+}
+
+.qrc-ms-pro-analytics-table-section .sorting-indicator.asc::before {
+	content: "\25B2";
+}
+
+.qrc-ms-pro-analytics-table-section .sorting-indicator.desc::before {
+	content: "\25BC";
+}
+
+/* ==========================================================================
+   Empty State
+   ========================================================================== */
+
+.qrc-ms-pro-analytics-empty {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 40px;
+	text-align: center;
+	margin: 20px 0;
+}
+
+.qrc-ms-pro-analytics-empty p {
+	font-size: 14px;
+	color: #646970;
+	margin: 0;
+}
+
+/* ==========================================================================
+   Meta Box (Sidebar)
+   ========================================================================== */
+
+.qrc-ms-pro-analytics-meta {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.qrc-ms-pro-analytics-stat {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #f0f0f1;
+}
+
+.qrc-ms-pro-analytics-stat:last-child {
+	border-bottom: none;
+	padding-bottom: 0;
+}
+
+.qrc-ms-pro-analytics-label {
+	font-size: 11px;
+	color: #646970;
+	text-transform: uppercase;
+	letter-spacing: 0.3px;
+}
+
+.qrc-ms-pro-analytics-value {
+	font-size: 14px;
+	font-weight: 600;
+	color: #1d2327;
+}
+
+.qrc-ms-pro-analytics-devices,
+.qrc-ms-pro-analytics-countries {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	margin-top: 4px;
+}
+
+.qrc-ms-pro-device-badge,
+.qrc-ms-pro-country-badge {
+	display: inline-block;
+	background: #f0f0f1;
+	border-radius: 3px;
+	padding: 2px 6px;
+	font-size: 11px;
+	color: #1d2327;
+}
+
+/* ==========================================================================
+   List Table Column
+   ========================================================================== */
+
+.column-qrc_ms_pro_scans {
+	width: 80px;
+	text-align: center;
+}
+
+.qrc-ms-pro-scans-na {
+	color: #a7aaad;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Page Intro Descriptions (shared across pro pages)
+|--------------------------------------------------------------------------
+*/
+
+.qrc-ms-pro-page-intro {
+	max-width: 700px;
+	margin: 8px 0 20px;
+	padding: 12px 16px;
+	background: #f9f9f9;
+	border-left: 4px solid #2271b1;
+	border-radius: 0 4px 4px 0;
+}
+
+.qrc-ms-pro-page-intro p {
+	margin: 0;
+	font-size: 13px;
+	line-height: 1.6;
+	color: #1d2327;
+}
+
+.qrc-ms-pro-page-intro details {
+	margin-top: 8px;
+}
+
+.qrc-ms-pro-page-intro summary {
+	cursor: pointer;
+	font-size: 13px;
+	color: #2271b1;
+	font-weight: 500;
+}
+
+.qrc-ms-pro-page-intro ul {
+	margin: 8px 0 0 20px;
+	font-size: 13px;
+}
+
+.qrc-ms-pro-page-intro li {
+	margin-bottom: 4px;
+}

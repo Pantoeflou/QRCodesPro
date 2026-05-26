@@ -1,22 +1,22 @@
 <?php
 /**
- * Plugin Name:       WP Forever Pro
- * Plugin URI:        https://your-site.com/wp-forever-pro
- * Description:       Pro add-on for WP Forever. Unlocks advanced features, priority support, and automatic updates.
+ * Plugin Name:       QR Codes - Made Simple Pro
+ * Plugin URI:        https://example.com/qrc-ms-pro
+ * Description:       Pro add-on for QR Codes - Made Simple. Unlocks advanced features, priority support, and automatic updates.
  * Version:           1.0.0
  * Requires at least: 6.0
  * Requires PHP:      8.0
- * Author:            Your Name
- * Author URI:        https://your-site.com
+ * Author:            Dev Team
+ * Author URI:        https://example.com
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       wp-forever-pro
+ * Text Domain:       qrc-ms-pro
  * Domain Path:       /languages
  *
- * @package WP_Forever_Pro
+ * @package QRC_MS_Pro
  * @since   1.0.0
  *
- * This is the pro add-on for WP Forever. It requires the free plugin
+ * This is the pro add-on for QR Codes - Made Simple. It requires the free plugin
  * to be installed and active. It extends the free plugin by:
  * - Adding pro feature modules via hooks/filters
  * - Managing license key validation
@@ -36,17 +36,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 |--------------------------------------------------------------------------
 */
 
-define( 'WP_FOREVER_PRO_VERSION', '1.0.0' );
-define( 'WP_FOREVER_PRO_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'WP_FOREVER_PRO_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'WP_FOREVER_PRO_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+define( 'QRC_MS_PRO_VERSION', '1.0.0' );
+define( 'QRC_MS_PRO_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'QRC_MS_PRO_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'QRC_MS_PRO_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 /**
  * Minimum required version of the free plugin.
  *
  * Bump this when pro features depend on free plugin changes.
  */
-define( 'WP_FOREVER_PRO_MIN_FREE_VERSION', '0.2.0' );
+define( 'QRC_MS_PRO_MIN_FREE_VERSION', '1.0.0' );
 
 /*
 |--------------------------------------------------------------------------
@@ -64,14 +64,14 @@ define( 'WP_FOREVER_PRO_MIN_FREE_VERSION', '0.2.0' );
  * @since 1.0.0
  * @return bool True if dependency is met.
  */
-function wp_forever_pro_check_dependency(): bool {
+function qrc_ms_pro_check_dependency(): bool {
 	// Check if free plugin is active (its main constant is defined).
-	if ( ! defined( 'WP_FOREVER_VERSION' ) ) {
+	if ( ! defined( 'QRC_MS_VERSION' ) ) {
 		return false;
 	}
 
 	// Check minimum version.
-	if ( version_compare( WP_FOREVER_VERSION, WP_FOREVER_PRO_MIN_FREE_VERSION, '<' ) ) {
+	if ( version_compare( QRC_MS_VERSION, QRC_MS_PRO_MIN_FREE_VERSION, '<' ) ) {
 		return false;
 	}
 
@@ -84,21 +84,21 @@ function wp_forever_pro_check_dependency(): bool {
  * @since 1.0.0
  * @return void
  */
-function wp_forever_pro_dependency_notice(): void {
-	if ( ! defined( 'WP_FOREVER_VERSION' ) ) {
+function qrc_ms_pro_dependency_notice(): void {
+	if ( ! defined( 'QRC_MS_VERSION' ) ) {
 		$message = sprintf(
 			/* translators: %s: Plugin name */
-			__( '%1$s requires %2$s to be installed and activated.', 'wp-forever-pro' ),
-			'<strong>WP Forever Pro</strong>',
-			'<strong>WP Forever</strong>'
+			__( '%1$s requires %2$s to be installed and activated.', 'qrc-ms-pro' ),
+			'<strong>QR Codes - Made Simple Pro</strong>',
+			'<strong>QR Codes - Made Simple</strong>'
 		);
 	} else {
 		$message = sprintf(
 			/* translators: %1$s: Plugin name, %2$s: Required version */
-			__( '%1$s requires %2$s version %3$s or higher. Please update the free plugin.', 'wp-forever-pro' ),
-			'<strong>WP Forever Pro</strong>',
-			'<strong>WP Forever</strong>',
-			WP_FOREVER_PRO_MIN_FREE_VERSION
+			__( '%1$s requires %2$s version %3$s or higher. Please update the free plugin.', 'qrc-ms-pro' ),
+			'<strong>QR Codes - Made Simple Pro</strong>',
+			'<strong>QR Codes - Made Simple</strong>',
+			QRC_MS_PRO_MIN_FREE_VERSION
 		);
 	}
 
@@ -121,39 +121,45 @@ function wp_forever_pro_dependency_notice(): void {
  * @since 1.0.0
  * @return void
  */
-function wp_forever_pro_init(): void {
+function qrc_ms_pro_init(): void {
 	// Check dependency.
-	if ( ! wp_forever_pro_check_dependency() ) {
-		add_action( 'admin_notices', 'wp_forever_pro_dependency_notice' );
+	if ( ! qrc_ms_pro_check_dependency() ) {
+		add_action( 'admin_notices', 'qrc_ms_pro_dependency_notice' );
 		return;
 	}
 
 	// Load pro files.
-	require_once WP_FOREVER_PRO_PLUGIN_DIR . 'includes/class-license-manager.php';
-	require_once WP_FOREVER_PRO_PLUGIN_DIR . 'includes/class-updater.php';
-	require_once WP_FOREVER_PRO_PLUGIN_DIR . 'includes/class-pro-loader.php';
+	require_once QRC_MS_PRO_PLUGIN_DIR . 'includes/class-license-manager.php';
+	require_once QRC_MS_PRO_PLUGIN_DIR . 'includes/class-updater.php';
+	require_once QRC_MS_PRO_PLUGIN_DIR . 'includes/class-pro-loader.php';
+
+	// Always load and initialize the redirect handler so existing dynamic QR
+	// codes continue to work even if the license expires. Printed QR codes
+	// must never break.
+	require_once QRC_MS_PRO_PLUGIN_DIR . 'includes/class-redirect-handler.php';
+	QRC_MS_Pro_Redirect_Handler::init();
 
 	// Initialize license management.
-	WP_Forever_Pro_License_Manager::init();
+	QRC_MS_Pro_License_Manager::init();
 
 	// Initialize self-hosted updater.
-	WP_Forever_Pro_Updater::init();
+	QRC_MS_Pro_Updater::init();
 
 	// Load pro modules (only if licensed).
-	if ( WP_Forever_Pro_License_Manager::is_valid() ) {
+	if ( QRC_MS_Pro_License_Manager::is_valid() ) {
 		// Tell the free plugin that pro access is available.
-		add_filter( 'wp_forever/has_pro_access', '__return_true' );
+		add_filter( 'qrc_ms/has_pro_access', '__return_true' );
 
-		WP_Forever_Pro_Loader::init();
+		QRC_MS_Pro_Loader::init();
 	}
 
 	/**
-	 * Fires after WP Forever Pro is fully loaded.
+	 * Fires after QR Codes - Made Simple Pro is fully loaded.
 	 *
 	 * @since 1.0.0
 	 */
-	do_action( 'wp_forever_pro/loaded' );
+	do_action( 'qrc_ms_pro/loaded' );
 }
 
 // Hook after the free plugin (priority 20, free uses default 10).
-add_action( 'plugins_loaded', 'wp_forever_pro_init', 20 );
+add_action( 'plugins_loaded', 'qrc_ms_pro_init', 20 );
